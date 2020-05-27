@@ -61,7 +61,13 @@ function App() {
 
   const setView = () => {
     if (cookie)
-      return <CookieDetail cookie={cookie} deleteCookie={deleteCookie} />;
+      return (
+        <CookieDetail
+          cookie={cookie}
+          deleteCookie={deleteCookie}
+          selectCookie={selectCookie}
+        />
+      );
 
     return (
       <CookieList
