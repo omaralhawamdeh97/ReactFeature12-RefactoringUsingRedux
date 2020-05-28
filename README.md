@@ -13,17 +13,22 @@
 
 ## Step 0: Previous Challenge
 
-1. Our search is case sensitive. To fix that we will use `toLowerCase` on both `cookie.name` and `query`. This guarantees that there is no issue with the case:
-
-```javascript
-const searchCookies = query => {
-  const filteredCookies = _cookies.filter(cookie =>
-    cookie.name.toLowerCase().includes(query.toLowerCase())
-  );
-  setCookies(filteredCookies);
-};
-```
-
 ## Step 1: Create a MobX Store
 
 1. Start with installing `mobx` and `mobx-react`.
+
+```shell
+  $ yarn add mobx mobx-react
+```
+
+2. Create a folder in `src` called `stores`. This is where we will create all our application's stores.
+
+3. Create a file called `cookieStore.js`
+
+4. A store is simply a `class`. Let's define our class:
+
+```javascript
+class CookieStore {}
+```
+
+5. What are our properties? Basically the data that's being many components, which in this case is `cookies`. So we'll import it in and save it in a class property:
