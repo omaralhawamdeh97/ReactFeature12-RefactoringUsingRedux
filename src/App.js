@@ -1,97 +1,73 @@
 import React, { useState } from "react";
-import { ThemeProvider } from "styled-components";
+import { Route, Switch } from "react-router";
+import { useHistory } from "react-router-dom";
 
 // Components
 import CookieDetail from "./components/CookieDetail";
 import CookieList from "./components/CookieList";
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
 
 // Data
 import cookies from "./cookies";
 
 // Styling
-import {
-  Description,
-  GlobalStyle,
-  ShopImage,
-  ThemeButton,
-  Title
-} from "./styles";
+import { GlobalStyle } from "./styles";
+import { ThemeProvider } from "styled-components";
 
-const lightTheme = {
-  mainColor: "#242424", // main font color
-  backgroundColor: "#fefafb", // main background color
-  pink: "#ff85a2",
-  red: "#ff3232"
-};
-
-const darkTheme = {
-  mainColor: "#fefafb", // main font color
-  backgroundColor: "#242424", // main background color
-  pink: "#ff85a2",
-  red: "#ff3232"
+const theme = {
+  light: {
+    mainColor: "#242424", // main font color
+    backgroundColor: "#fefafb", // main background color
+    pink: "#ff85a2",
+    red: "#ff3232",
+  },
+  dark: {
+    mainColor: "#fefafb", // main font color
+    backgroundColor: "#242424", // main background color
+    pink: "#ff85a2",
+    red: "#ff3232",
+  },
 };
 
 function App() {
-  const [theme, setTheme] = useState("light");
-  const [cookie, setCookie] = useState(null);
+  const [currentTheme, setCurrentTheme] = useState("light");
   const [_cookies, setCookies] = useState(cookies);
+  const history = useHistory();
 
-  const deleteCookie = cookieId => {
-    const updatedCookies = _cookies.filter(cookie => cookie.id !== +cookieId);
+  const createCookie = (newCookie) => {
+    setCookies((oldCookies) => [...oldCookies, newCookie]);
+  };
+
+  const deleteCookie = (event, cookieId) => {
+    event.preventDefault();
+    const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
     setCookies(updatedCookies);
-    setCookie(null);
+    history.push("/cookies");
   };
 
-  const searchCookies = query => {
-    const filteredCookies = cookies.filter(cookie =>
-      cookie.name.includes(query)
-    );
-    setCookies(filteredCookies);
-  };
-
-  const selectCookie = cookieId => {
-    const selectedCookie = cookies.find(cookie => cookie.id === cookieId);
-    setCookie(selectedCookie);
-  };
-
-  const toggleTheme = () => {
-    if (theme === "light") setTheme("dark");
-    else setTheme("light");
-  };
-
-  const setView = () => {
-    if (cookie)
-      return (
-        <CookieDetail
-          cookie={cookie}
-          deleteCookie={deleteCookie}
-          selectCookie={selectCookie}
-        />
-      );
-
-    return (
-      <CookieList
-        cookies={_cookies}
-        deleteCookie={deleteCookie}
-        searchCookies={searchCookies}
-        selectCookie={selectCookie}
-      />
-    );
-  };
+  const toggleTheme = () =>
+    setCurrentTheme(currentTheme === "light" ? "dark" : "light");
 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
-      <ThemeButton onClick={toggleTheme}>Dark Mode</ThemeButton>
-      <>
-        <Title>Cookies and Beyond</Title>
-        <Description>Where cookie maniacs gather</Description>
-        <ShopImage
-          alt="cookie shop"
-          src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
-        />
-      </>
-      {setView()}
+      <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/cookies/:cookieId">
+          <CookieDetail cookies={_cookies} deleteCookie={deleteCookie} />
+        </Route>
+        <Route path="/cookies">
+          <CookieList
+            cookies={_cookies}
+            createCookie={createCookie}
+            deleteCookie={deleteCookie}
+          />
+        </Route>
+      </Switch>
     </ThemeProvider>
   );
 }
