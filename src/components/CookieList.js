@@ -11,7 +11,7 @@ import { ListWrapper } from "../styles";
 
 const CookieList = ({ cookies, createCookie, deleteCookie }) => {
   const [query, setQuery] = useState("");
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
 

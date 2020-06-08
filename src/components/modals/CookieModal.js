@@ -2,23 +2,34 @@ import React, { useState } from "react";
 
 // Styling
 import Modal from "react-modal";
-import { CreateButton, modalStyle } from "../../styles";
+import { CreateButtonStyled } from "../../styles";
+
+const modalStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    width: "40%",
+  },
+};
 
 const CookieModal = ({ isOpen, closeModal, createCookie }) => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [cookie, setCookie] = useState({
+    name: "",
+    price: 0,
+    description: "",
+    image: "",
+  });
+
+  const handleChange = (event) => {
+    setCookie({ ...cookie, [event.target.name]: event.target.value });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newCookie = {
-      name,
-      price,
-      description,
-      image,
-    };
-    createCookie(newCookie);
+    createCookie(cookie);
     closeModal();
   };
 
@@ -28,7 +39,6 @@ const CookieModal = ({ isOpen, closeModal, createCookie }) => {
       onRequestClose={closeModal}
       style={modalStyle}
       contentLabel="Example Modal"
-      ariaHideApp={false}
     >
       <h3>New Cookie</h3>
       <form onSubmit={handleSubmit}>
@@ -36,40 +46,44 @@ const CookieModal = ({ isOpen, closeModal, createCookie }) => {
           <div className="col-6">
             <label>Name</label>
             <input
+              name="name"
               type="text"
               className="form-control"
-              onChange={(event) => setName(event.target.value)}
+              onChange={handleChange}
             />
           </div>
           <div className="col-6">
             <label>Price</label>
             <input
+              name="price"
               type="number"
               min="1"
               className="form-control"
-              onChange={(event) => setPrice(event.target.value)}
+              onChange={handleChange}
             />
           </div>
         </div>
         <div className="form-group">
           <label>Description</label>
           <input
+            name="description"
             type="text"
             className="form-control"
-            onChange={(event) => setDescription(event.target.value)}
+            onChange={handleChange}
           />
         </div>
         <div className="form-group">
           <label>Image</label>
           <input
+            name="image"
             type="text"
             className="form-control"
-            onChange={(event) => setImage(event.target.value)}
+            onChange={handleChange}
           />
         </div>
-        <CreateButton className="btn float-right" type="submit">
+        <CreateButtonStyled className="btn float-right" type="submit">
           Create
-        </CreateButton>
+        </CreateButtonStyled>
       </form>
     </Modal>
   );

@@ -3,12 +3,11 @@ import React from "react";
 // Styling
 import lightLogo from "../light-logo.png";
 import darkLogo from "../dark-logo.png";
-import { Nav, ThemeButton, Logo, NavItem } from "../styles";
-import { Link } from "react-router-dom";
+import { NavStyled, ThemeButton, Logo, NavItem } from "../styles";
 
 const NavBar = ({ currentTheme, toggleTheme }) => {
   return (
-    <Nav className="navbar navbar-expand-lg">
+    <NavStyled className="navbar navbar-expand-lg">
       <Logo className="navbar-brand" to="/">
         <img src={currentTheme === "light" ? lightLogo : darkLogo} alt="logo" />
       </Logo>
@@ -22,7 +21,7 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
           </ThemeButton>
         </div>
       </div>
-    </Nav>
+    </NavStyled>
   );
 };
 

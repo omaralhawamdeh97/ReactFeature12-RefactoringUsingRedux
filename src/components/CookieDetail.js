@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 // Components
-import Delete from "./buttons/Delete";
+import DeleteButton from "./buttons/DeleteButton";
 
 // Styling
 import { DetailWrapper } from "../styles";
@@ -16,7 +16,7 @@ const CookieDetail = ({ cookies, deleteCookie }) => {
       <img src={cookie.image} alt={cookie.name} />
       <p>{cookie.description}</p>
       <p>{cookie.price} KD</p>
-      <Delete cookieId={cookie.id} deleteCookie={deleteCookie} />
+      <DeleteButton cookieId={cookie.id} deleteCookie={deleteCookie} />
     </DetailWrapper>
   );
 };

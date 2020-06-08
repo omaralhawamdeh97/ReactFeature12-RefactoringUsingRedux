@@ -1,11 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // Components
-import Delete from "./buttons/Delete";
+import DeleteButton from "./buttons/DeleteButton";
 
 // Styling
 import { CookieWrapper } from "../styles";
-import { Link } from "react-router-dom";
 
 const CookieItem = ({ cookie, deleteCookie }) => {
   return (
@@ -14,7 +14,7 @@ const CookieItem = ({ cookie, deleteCookie }) => {
         <img alt={cookie.name} src={cookie.image} />
         <p className="cookie-name">{cookie.name}</p>
         <p className="cookie-price">{cookie.price} KD</p>
-        <Delete cookieId={cookie.id} deleteCookie={deleteCookie} />
+        <DeleteButton cookieId={cookie.id} deleteCookie={deleteCookie} />
       </Link>
     </CookieWrapper>
   );
