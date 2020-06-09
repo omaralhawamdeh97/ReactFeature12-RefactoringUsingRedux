@@ -14,9 +14,10 @@
 ```javascript
 <input
   required
+  name="name"
   type="text"
   className="form-control"
-  onChange={(event) => setName(event.target.value)}
+  onChange={handleChange}
 />
 ```
 
@@ -121,7 +122,7 @@ createCookie = (newCookie) => {
 
 ```javascript
 createCookie = (newCookie) => {
-  newCookie.id = cookies[cookies.length - 1].id + 1;
+  newCookie.id = this.cookies[this.cookies.length - 1].id + 1;
   this.cookies.push(newCookie);
 };
 ```
@@ -138,13 +139,7 @@ import cookieStore from "../../stores/cookieStore";
 ```javascript
 const handleSubmit = (event) => {
   event.preventDefault();
-  const newCookie = {
-    name,
-    price,
-    description,
-    image,
-  };
-  cookieStore.createCookie(newCookie);
+  cookieStore.createCookie(cookie);
   closeModal();
 };
 ```
@@ -153,9 +148,8 @@ const handleSubmit = (event) => {
 
 ```javascript
 createCookie = (newCookie) => {
-  newCookie.id = cookies[cookies.length - 1].id + 1;
+  newCookie.id = this.cookies[this.cookies.length - 1].id + 1;
   this.cookies.push(newCookie);
-  console.log("CookieStore -> createCookie -> cookies", cookies);
 };
 ```
 
@@ -175,34 +169,7 @@ export default observer(CookieList);
 
 ## Step 3: Delete Method
 
-A lot is going on in our delete method, if we move it directly to the store it'll cause a mess.
-
-1. In our `Delete` component, we'll create a method called `handleDelete` that handles `preventDefault` and going to the list page.
-
-```javascript
-const handleDelete = (event) => {
-  event.preventDefault();
-  cookieStore.deleteCookie(cookieId);
-  history.push("/cookies");
-};
-```
-
-2. Since we're only passing `event` to `handleDelete`, we don't need to pass it, it's passed automatically to `handleDelete`
-
-```jsx
-<DeleteButton onClick={handleDelete}>Delete</DeleteButton>
-```
-
-3. Now fix `deleteCookie` in `App`:
-
-```javascript
-const deleteCookie = (cookieId) => {
-  const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
-  setCookies(updatedCookies);
-};
-```
-
-4. Now let's move it to our lovely store. Remove the `setCookies` line and directly update `this.cookies`
+1. Now let's move the `deleteCookie` to our lovely store. Remove the `setCookies` line and directly update `this.cookies`
 
 ```javascript
 deleteCookie = (cookieId) => {
@@ -210,13 +177,13 @@ deleteCookie = (cookieId) => {
 };
 ```
 
-5. Go to `Delete` component, import `cookieStore`:
+2. Go to `DeleteButton` component, import `cookieStore`:
 
 ```javascript
 import cookieStore from "../../stores/cookieStore";
 ```
 
-6. Replace `deleteCookie` from `props` with `cookieStore.deleteCookie`
+3. Replace `deleteCookie` from `props` with `cookieStore.deleteCookie`
 
 ```javascript
 const handleDelete = (event) => {
@@ -226,6 +193,6 @@ const handleDelete = (event) => {
 };
 ```
 
-7. Try the delete button. It's working!
+4. Try the delete button. It's working!
 
-8. Delete both `_cookies` state and `deleteCookie` method in `App`, `CookieList`, `CookieItem`, `Delete`. The code looks much better!!
+5. Delete both `_cookies` state and `deleteCookie` method in `App`, `CookieList`, `CookieItem`, `DeleteButton` and `CookieDetail`. The code looks much better!!
