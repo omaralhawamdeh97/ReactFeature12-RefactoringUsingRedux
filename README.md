@@ -27,6 +27,24 @@
 const id = _cookies[_cookies.length - 1].id + 1;
 ```
 
+3. To add a slug, we will install a library called `react-slugify`.
+
+```shell
+  $ yarn add react-slugify
+```
+
+4. Import `slugify` in `App.js`
+
+```javascript
+import slugify from "react-slugify";
+```
+
+5. Add a new property to your `newCookie` item called `slug` and pass it the return value of the slugified name
+
+```javascript
+newCookie.slug = slugify(newCookie.name);
+```
+
 ## Step 1: Create a MobX Store
 
 At this point, our code is growing, and the code in `App` is becoming bulkier. Also, passing `cookies` and its methods can easily become messier. So we will create a store that manages our global data.
