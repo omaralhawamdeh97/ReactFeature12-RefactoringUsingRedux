@@ -10,7 +10,7 @@ import { CookieWrapper } from "../styles";
 const CookieItem = ({ cookie, deleteCookie }) => {
   return (
     <CookieWrapper className="col-lg-4 col-md-6 col-sm-6">
-      <Link to={`/cookies/${cookie.id}`}>
+      <Link to={`/cookies/${cookie.slug}`}>
         <img alt={cookie.name} src={cookie.image} />
         <p className="cookie-name">{cookie.name}</p>
         <p className="cookie-price">{cookie.price} KD</p>

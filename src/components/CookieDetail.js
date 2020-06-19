@@ -8,8 +8,9 @@ import DeleteButton from "./buttons/DeleteButton";
 import { DetailWrapper } from "../styles";
 
 const CookieDetail = ({ cookies, deleteCookie }) => {
-  const { cookieId } = useParams();
-  const cookie = cookies.find((cookie) => cookie.id === +cookieId);
+  const { cookieSlug } = useParams();
+  const cookie = cookies.find((cookie) => cookie.slug === cookieSlug);
+
   return (
     <DetailWrapper>
       <h1>{cookie.name}</h1>
