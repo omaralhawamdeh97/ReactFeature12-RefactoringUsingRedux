@@ -24,10 +24,10 @@
 2. To add an ID to our cookie item, we'll basically get the ID of the last item in `_cookies` and increment it by 1.
 
 ```javascript
-const id = _cookies[_cookies.length - 1].id + 1;
+newCookie.id = _cookies[_cookies.length - 1].id + 1;
 ```
 
-3. To add a slug, we will install a library called `react-slugify`.
+3. To add a slug, we will install a library called [`react-slugify`](https://www.npmjs.com/package/react-slugify).
 
 ```shell
   $ yarn add react-slugify
@@ -57,7 +57,7 @@ At this point, our code is growing, and the code in `App` is becoming bulkier. A
 
 2. Create a folder in `src` called `stores`. This is where we will create all our application's stores.
 
-3. Create a file called `cookieStore.js`
+3. Create a file called `cookieStore.js`.
 
 4. A store is simply a `class`. Let's define our class:
 
@@ -125,13 +125,16 @@ import cookieStore from "../stores/cookieStore";
 
 2. To access in `cookies` in `cookieStore`, we will say `cookieStore.cookies`. So let's replace `cookies` that's coming from `props` with `cookieStore.cookies`:
 
-3) Let's see what happens. Our cookies are there! But the delete and create stopped working, because they're updating the cookies state not the store cookies.
+3, Let's see what happens. Our cookies are there! But the delete and create stopped working, because they're updating the cookies state not the store cookies.
 
-4. Let's move the `createCookie` method to the store and fix it. First, remove `const` and replace `_cookies` with `cookies`:
+4. Let's move the `createCookie` method to the store and fix it. Don't forget to move the `slugify` import as well.
+
+5. First, remove the method's `const` and replace `_cookies` with `cookies`:
 
 ```javascript
 createCookie = (newCookie) => {
   newCookie.id = cookies[cookies.length - 1].id + 1;
+  newCookie.slug = slugify(newCookie.name);
   setCookies((oldCookies) => [...oldCookies, newCookie]);
 };
 ```
@@ -141,6 +144,7 @@ createCookie = (newCookie) => {
 ```javascript
 createCookie = (newCookie) => {
   newCookie.id = this.cookies[this.cookies.length - 1].id + 1;
+  newCookie.slug = slugify(newCookie.name);
   this.cookies.push(newCookie);
 };
 ```
@@ -167,11 +171,13 @@ const handleSubmit = (event) => {
 ```javascript
 createCookie = (newCookie) => {
   newCookie.id = this.cookies[this.cookies.length - 1].id + 1;
+  newCookie.slug = slugify(newCookie.name);
   this.cookies.push(newCookie);
+  console.log("CookieStore -> createCookie -> this.cookies", this.cookies);
 };
 ```
 
-9. The array is changing! But it's like `CookieList` is not seeing the change. That's because we need to make `CookieList` an `observer` to track any changes in our store. In `CookieList`, import `observer`:
+9. The array is changing! But it's like `CookieList` is not seeing the change. We need Khalty Gmasha's super powers! We need to make `CookieList` an `observer` to track any changes in our store. In `CookieList`, import `observer`:
 
 ```javascript
 import { observer } from "mobx-react";
@@ -183,7 +189,7 @@ import { observer } from "mobx-react";
 export default observer(CookieList);
 ```
 
-11. Now we can remove `createCookie` from `App`, `CookieList` and `CookieModal`!
+11. Now we can remove `createCookie` from `App`, `CookieList` and `CookieModal`! A HUUUUGEE TARARARAAAAAAA!!!
 
 ## Step 3: Delete Method
 
@@ -191,7 +197,7 @@ export default observer(CookieList);
 
 ```javascript
 deleteCookie = (cookieId) => {
-  this.cookies = this.cookies.filter((cookie) => cookie.id !== +cookieId);
+  this.cookies = this.cookies.filter((cookie) => cookie.id !== cookieId);
 };
 ```
 
@@ -207,10 +213,34 @@ import cookieStore from "../../stores/cookieStore";
 const handleDelete = (event) => {
   event.preventDefault();
   cookieStore.deleteCookie(cookieId);
-  history.push("/cookies");
 };
 ```
 
 4. Try the delete button. It's working!
 
 5. Delete both `_cookies` state and `deleteCookie` method in `App`, `CookieList`, `CookieItem`, `DeleteButton` and `CookieDetail`. The code looks much better!!
+
+## Step 4: Cookie Detail
+
+1. In `CookieDetail`, import `cookieStore`.
+
+```javascript
+// Stores
+import cookieStore from "../stores/cookieStore";
+```
+
+2. Remove `cookies` that's coming from `props` and replace with `cookieStore.cookies`
+
+```javascript
+const CookieDetail = () => {
+  const { cookieId } = useParams();
+  const cookie = cookieStore.cookies.find((cookie) => cookie.id === +cookieId);
+```
+
+3. Remove `deleteCookies` that's coming from `props`
+
+```jsx
+<DeleteButton cookieId={cookie.id} />
+```
+
+4. In `App`, delete `_cookies` and remove the `cookies` import. Also remove `cookies` and `deleteCookies` that you're passing as `props` to `CookieDetail`.

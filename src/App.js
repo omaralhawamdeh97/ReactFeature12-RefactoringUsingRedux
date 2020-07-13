@@ -38,7 +38,7 @@ function App() {
   };
 
   const deleteCookie = (cookieId) => {
-    const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
+    const updatedCookies = _cookies.filter((cookie) => cookie.id !== cookieId);
     setCookies(updatedCookies);
   };
 
