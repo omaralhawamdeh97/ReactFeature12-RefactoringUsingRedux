@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
 // Components
-import AddButton from "./buttons/AddButton";
 import CookieItem from "./CookieItem";
 import SearchBar from "./SearchBar";
 
 // Styling
 import { ListWrapper } from "../styles";
 
-const CookieList = ({ cookies, createCookie, deleteCookie }) => {
+const CookieList = ({ cookies, deleteCookie }) => {
   const [query, setQuery] = useState("");
 
   const cookieList = cookies
@@ -21,7 +20,6 @@ const CookieList = ({ cookies, createCookie, deleteCookie }) => {
     <div className="container">
       <SearchBar setQuery={setQuery} />
       <ListWrapper className="row">{cookieList}</ListWrapper>
-      <AddButton createCookie={createCookie} />
     </div>
   );
 };

@@ -4,9 +4,11 @@ import React from "react";
 import { DeleteButtonStyled } from "../../styles";
 
 const DeleteButton = ({ cookieId, deleteCookie }) => {
-  const handleDelete = (event) => deleteCookie(cookieId);
-
-  return <DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>;
+  return (
+    <DeleteButtonStyled onClick={() => deleteCookie(cookieId)}>
+      Delete
+    </DeleteButtonStyled>
+  );
 };
 
 export default DeleteButton;

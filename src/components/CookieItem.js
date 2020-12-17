@@ -12,10 +12,10 @@ const CookieItem = ({ cookie, deleteCookie }) => {
     <CookieWrapper className="col-lg-4 col-md-6 col-sm-6">
       <Link to={`/cookies/${cookie.slug}`}>
         <img alt={cookie.name} src={cookie.image} />
-        <p className="cookie-name">{cookie.name}</p>
-        <p className="cookie-price">{cookie.price} KD</p>
-        <DeleteButton cookieId={cookie.id} deleteCookie={deleteCookie} />
       </Link>
+      <p className="cookie-name">{cookie.name}</p>
+      <p className="cookie-price">{cookie.price} KD</p>
+      <DeleteButton cookieId={cookie.id} deleteCookie={deleteCookie} />
     </CookieWrapper>
   );
 };

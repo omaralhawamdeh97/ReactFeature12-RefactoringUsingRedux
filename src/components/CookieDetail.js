@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 
 // Components
 import DeleteButton from "./buttons/DeleteButton";
@@ -10,6 +10,8 @@ import { DetailWrapper } from "../styles";
 const CookieDetail = ({ cookies, deleteCookie }) => {
   const { cookieSlug } = useParams();
   const cookie = cookies.find((cookie) => cookie.slug === cookieSlug);
+
+  if (!cookie) return <Redirect to="/cookies" />;
 
   return (
     <DetailWrapper>

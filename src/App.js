@@ -8,7 +8,7 @@ import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 
 // Data
-import cookies from "./cookies";
+import cookiesData from "./cookies";
 
 // Styling
 import { GlobalStyle } from "./styles";
@@ -31,14 +31,10 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
-  const [_cookies, setCookies] = useState(cookies);
-
-  const createCookie = (newCookie) => {
-    setCookies([..._cookies, newCookie]);
-  };
+  const [cookies, setCookies] = useState(cookiesData);
 
   const deleteCookie = (cookieId) => {
-    const updatedCookies = _cookies.filter((cookie) => cookie.id !== cookieId);
+    const updatedCookies = cookies.filter((cookie) => cookie.id !== cookieId);
     setCookies(updatedCookies);
   };
 
@@ -54,14 +50,10 @@ function App() {
           <Home />
         </Route>
         <Route path="/cookies/:cookieSlug">
-          <CookieDetail cookies={_cookies} deleteCookie={deleteCookie} />
+          <CookieDetail cookies={cookies} deleteCookie={deleteCookie} />
         </Route>
         <Route path="/cookies">
-          <CookieList
-            cookies={_cookies}
-            createCookie={createCookie}
-            deleteCookie={deleteCookie}
-          />
+          <CookieList cookies={cookies} deleteCookie={deleteCookie} />
         </Route>
       </Switch>
     </ThemeProvider>
