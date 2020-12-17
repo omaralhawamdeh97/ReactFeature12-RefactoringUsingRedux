@@ -7,7 +7,7 @@ import DeleteButton from "./buttons/DeleteButton";
 // Styling
 import { CookieWrapper } from "../styles";
 
-const CookieItem = ({ cookie, deleteCookie }) => {
+const CookieItem = ({ cookie }) => {
   return (
     <CookieWrapper className="col-lg-4 col-md-6 col-sm-6">
       <Link to={`/cookies/${cookie.slug}`}>
@@ -15,7 +15,7 @@ const CookieItem = ({ cookie, deleteCookie }) => {
       </Link>
       <p className="cookie-name">{cookie.name}</p>
       <p className="cookie-price">{cookie.price} KD</p>
-      <DeleteButton cookieId={cookie.id} deleteCookie={deleteCookie} />
+      <DeleteButton cookieId={cookie.id} />
     </CookieWrapper>
   );
 };

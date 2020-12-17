@@ -7,9 +7,6 @@ import CookieList from "./components/CookieList";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 
-// Data
-import cookiesData from "./cookies";
-
 // Styling
 import { GlobalStyle } from "./styles";
 import { ThemeProvider } from "styled-components";
@@ -31,12 +28,6 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
-  const [cookies, setCookies] = useState(cookiesData);
-
-  const deleteCookie = (cookieId) => {
-    const updatedCookies = cookies.filter((cookie) => cookie.id !== cookieId);
-    setCookies(updatedCookies);
-  };
 
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
@@ -50,10 +41,10 @@ function App() {
           <Home />
         </Route>
         <Route path="/cookies/:cookieSlug">
-          <CookieDetail cookies={cookies} deleteCookie={deleteCookie} />
+          <CookieDetail />
         </Route>
         <Route path="/cookies">
-          <CookieList cookies={cookies} deleteCookie={deleteCookie} />
+          <CookieList />
         </Route>
       </Switch>
     </ThemeProvider>

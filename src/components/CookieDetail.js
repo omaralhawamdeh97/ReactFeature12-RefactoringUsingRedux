@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 
 // Components
@@ -7,9 +8,11 @@ import DeleteButton from "./buttons/DeleteButton";
 // Styling
 import { DetailWrapper } from "../styles";
 
-const CookieDetail = ({ cookies, deleteCookie }) => {
+const CookieDetail = () => {
   const { cookieSlug } = useParams();
-  const cookie = cookies.find((cookie) => cookie.slug === cookieSlug);
+  const cookie = useSelector((state) =>
+    state.cookies.find((cookie) => cookie.slug === cookieSlug)
+  );
 
   if (!cookie) return <Redirect to="/cookies" />;
 
@@ -19,7 +22,7 @@ const CookieDetail = ({ cookies, deleteCookie }) => {
       <img src={cookie.image} alt={cookie.name} />
       <p>{cookie.description}</p>
       <p>{cookie.price} KD</p>
-      <DeleteButton cookieId={cookie.id} deleteCookie={deleteCookie} />
+      <DeleteButton cookieId={cookie.id} />
     </DetailWrapper>
   );
 };
