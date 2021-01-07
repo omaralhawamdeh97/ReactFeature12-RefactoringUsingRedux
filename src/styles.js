@@ -1,26 +1,5 @@
-import styled, { createGlobalStyle } from "styled-components";
 import { Link, NavLink } from "react-router-dom";
-
-export const CookieWrapper = styled.div`
-  color: ${(props) => props.theme.mainColor};
-  text-decoration: none;
-  text-align: center;
-
-  img {
-    width: 12em;
-    height: 12em;
-  }
-
-  p {
-    &.cookie-name {
-      color: ${(props) => props.theme.mainColor};
-    }
-
-    &.cookie-price {
-      color: ${(props) => props.theme.pink};
-    }
-  }
-`;
+import styled, { createGlobalStyle } from "styled-components";
 
 export const CreateButtonStyled = styled.button`
   color: ${(props) => props.theme.backgroundColor};
@@ -85,6 +64,27 @@ export const NavItem = styled(NavLink)`
 
   &.active {
     color: ${(props) => props.theme.pink};
+  }
+`;
+
+export const ProductWrapper = styled.div`
+  color: ${(props) => props.theme.mainColor};
+  text-decoration: none;
+  text-align: center;
+
+  img {
+    width: 12em;
+    height: 12em;
+  }
+
+  p {
+    &.product-name {
+      color: ${(props) => props.theme.mainColor};
+    }
+
+    &.product-price {
+      color: ${(props) => props.theme.pink};
+    }
   }
 `;
 
