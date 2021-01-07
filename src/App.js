@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
 
-// Components
-import CookieDetail from "./components/CookieDetail";
-import CookieList from "./components/CookieList";
-import Home from "./components/Home";
-import NavBar from "./components/NavBar";
-
-// Data
-import cookiesData from "./cookies";
-
 // Styling
 import { GlobalStyle } from "./styles";
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
+// Components
+import ProductDetail from "./components/ProductDetail";
+import ProductList from "./components/ProductList";
 import { ThemeProvider } from "styled-components";
+// Data
+import productsData from "./products";
 
 const theme = {
   light: {
@@ -31,11 +29,13 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
-  const [cookies, setCookies] = useState(cookiesData);
+  const [products, setProducts] = useState(productsData);
 
-  const deleteCookie = (cookieId) => {
-    const updatedCookies = cookies.filter((cookie) => cookie.id !== cookieId);
-    setCookies(updatedCookies);
+  const deleteProduct = (productId) => {
+    const updatedProducts = products.filter(
+      (product) => product.id !== productId
+    );
+    setProducts(updatedProducts);
   };
 
   const toggleTheme = () =>
@@ -49,11 +49,11 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/cookies/:cookieSlug">
-          <CookieDetail cookies={cookies} deleteCookie={deleteCookie} />
+        <Route path="/products/:productSlug">
+          <ProductDetail products={products} deleteProduct={deleteProduct} />
         </Route>
-        <Route path="/cookies">
-          <CookieList cookies={cookies} deleteCookie={deleteCookie} />
+        <Route path="/products">
+          <ProductList products={products} deleteProduct={deleteProduct} />
         </Route>
       </Switch>
     </ThemeProvider>

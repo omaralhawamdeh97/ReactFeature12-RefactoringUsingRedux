@@ -1,11 +1,9 @@
-import React from "react";
-
 // Styling
 import { DeleteButtonStyled } from "../../styles";
 
-const DeleteButton = ({ cookieId, deleteCookie }) => {
+const DeleteButton = ({ deleteProduct, productId }) => {
   return (
-    <DeleteButtonStyled onClick={() => deleteCookie(cookieId)}>
+    <DeleteButtonStyled onClick={() => deleteProduct(productId)}>
       Delete
     </DeleteButtonStyled>
   );

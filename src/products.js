@@ -1,4 +1,4 @@
-const cookies = [
+const products = [
   {
     id: 1,
     name: "Chocolate Chip Cookie",
@@ -28,4 +28,4 @@ const cookies = [
   },
 ];
 
-export default cookies;
+export default products;
