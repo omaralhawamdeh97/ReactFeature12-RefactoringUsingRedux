@@ -5,7 +5,11 @@ import ProductItem from "./ProductItem";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 
-const ProductList = ({ products, deleteProduct }) => {
+import { useSelector } from "react-redux";
+
+const ProductList = ({ deleteProduct }) => {
+  const products = useSelector((state) => state.products);
+
   const [query, setQuery] = useState("");
 
   const productList = products
