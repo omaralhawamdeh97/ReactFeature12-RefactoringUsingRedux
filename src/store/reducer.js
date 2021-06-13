@@ -1,7 +1,6 @@
 import productsData from "../products";
-import { createStore } from "redux";
-import { DELETE_PRODUCT } from "./actions";
-
+import { CREATE_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT } from "./actions";
+import slugify from "slugify";
 const initialState = {
   products: productsData,
 };
@@ -15,6 +14,25 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         products: productsToKeep,
+      };
+
+    case CREATE_PRODUCT:
+      const { newProduct } = action.payload;
+      newProduct.id = state.products[state.products.length - 1].id + 1;
+
+      newProduct.slug = slugify(action.payload.newProduct.name);
+      return {
+        ...state,
+        products: [...state.products, newProduct],
+      };
+
+    case UPDATE_PRODUCT:
+      const { updated } = action.payload;
+      return {
+        ...state,
+        products: state.products.map((prod) =>
+          prod.id === updated.id ? updated : prod
+        ),
       };
     default:
       return state;

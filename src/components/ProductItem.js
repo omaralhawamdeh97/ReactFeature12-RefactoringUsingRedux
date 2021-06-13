@@ -13,6 +13,9 @@ const ProductItem = ({ product, deleteProduct }) => {
       <p>{product.name}</p>
       <p className="product-price">{product.price} KD</p>
       <DeleteButton productId={product.id} deleteProduct={deleteProduct} />
+      <Link to={`/products/${product.slug}/edit`}>
+        <button>Update Cookie !</button>
+      </Link>
     </ProductWrapper>
   );
 };

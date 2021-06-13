@@ -99,3 +99,24 @@ export const ThemeButton = styled.button`
 export const Title = styled.h1`
   text-align: center;
 `;
+
+export const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+`;
+
+export const InputBar = styled.input`
+  /* display: flex;
+  flex-direction: column; */
+  width: 100%;
+  /* align-items: center; */
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+`;
