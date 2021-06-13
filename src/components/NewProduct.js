@@ -68,9 +68,9 @@ const NewProduct = () => {
         <label>
           description:
           <InputBar
-            value={product.descreption}
+            value={product.description}
             placeholder="enter Cookie description "
-            type="number"
+            type="text"
             name="description"
             onChange={handleChange}
           />

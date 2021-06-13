@@ -28,6 +28,8 @@ const reducer = (state = initialState, action) => {
 
     case UPDATE_PRODUCT:
       const { updated } = action.payload;
+
+      updated.slug = slugify(action.payload.updated.name);
       return {
         ...state,
         products: state.products.map((prod) =>
