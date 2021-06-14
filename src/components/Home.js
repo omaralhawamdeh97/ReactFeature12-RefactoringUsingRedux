@@ -1,7 +1,10 @@
 // Styling
+import { useState } from "react";
 import { Description, ShopImage, Title } from "../styles";
 
 const Home = () => {
+  const [value, setValue] = useState("");
+
   return (
     <>
       <Title>Cookies and Beyond</Title>

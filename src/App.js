@@ -11,6 +11,7 @@ import ProductList from "./components/ProductList";
 import { ThemeProvider } from "styled-components";
 // Data
 import productsData from "./products";
+import NewProduct from "./components/NewProduct";
 
 const theme = {
   light: {
@@ -46,12 +47,16 @@ function App() {
       <GlobalStyle />
       <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
       <Switch>
+        <Route path={["/products/NewProduct", "/products/:productSlug/edit"]}>
+          <NewProduct />
+        </Route>
         <Route exact path="/">
           <Home />
         </Route>
         <Route path="/products/:productSlug">
           <ProductDetail />
         </Route>
+
         <Route path="/products">
           <ProductList />
         </Route>
